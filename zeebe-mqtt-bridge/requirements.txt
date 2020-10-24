@@ -1,0 +1,5 @@
+grpcio==1.32.0
+paho-mqtt==1.5.1
+protobuf==3.13.0
+six==1.15.0
+zeebe-grpc==0.24.3.3

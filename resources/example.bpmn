@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1g4qjgt" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Zeebe Modeler" exporterVersion="0.10.0">
+  <bpmn:process id="ExampleWorkflow" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Start">
+      <bpmn:outgoing>Flow_05ci0u4</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_0opdw85" name="End">
+      <bpmn:incoming>Flow_0l1u149</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_05ci0u4" sourceRef="StartEvent_1" targetRef="Activity_1v4cug8" />
+    <bpmn:sequenceFlow id="Flow_0l1u149" sourceRef="Event_1wccwy3" targetRef="Event_0opdw85" />
+    <bpmn:intermediateCatchEvent id="Event_1wccwy3" name="Get temperature">
+      <bpmn:incoming>Flow_0xfojm4</bpmn:incoming>
+      <bpmn:outgoing>Flow_0l1u149</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0bbbqbf" messageRef="Message_07eun7c" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_0xfojm4" sourceRef="Activity_1v4cug8" targetRef="Event_1wccwy3" />
+    <bpmn:serviceTask id="Activity_1v4cug8" name="Request temperature">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="zeebe-mqtt-worker" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_05ci0u4</bpmn:incoming>
+      <bpmn:outgoing>Flow_0xfojm4</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmn:message id="Message_07eun7c" name="Temperature">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=processId" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ExampleWorkflow">
+      <bpmndi:BPMNEdge id="Flow_0l1u149_di" bpmnElement="Flow_0l1u149">
+        <di:waypoint x="548" y="130" />
+        <di:waypoint x="632" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05ci0u4_di" bpmnElement="Flow_05ci0u4">
+        <di:waypoint x="218" y="130" />
+        <di:waypoint x="310" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0xfojm4_di" bpmnElement="Flow_0xfojm4">
+        <di:waypoint x="410" y="130" />
+        <di:waypoint x="512" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="182" y="112" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="188" y="155" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0opdw85_di" bpmnElement="Event_0opdw85">
+        <dc:Bounds x="632" y="112" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="640" y="155" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0bcn1pq_di" bpmnElement="Event_1wccwy3">
+        <dc:Bounds x="512" y="112" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="490" y="155" width="80" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1x3i8dx_di" bpmnElement="Activity_1v4cug8">
+        <dc:Bounds x="310" y="90" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
